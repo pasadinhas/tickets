@@ -20,9 +20,10 @@ Route::pattern('id', '[0-9]+');
 
 Route::get('/places', array('as'=>'','uses'=>'PlaceController@getIndex'));
 Route::get('/place/{id}', array('as'=>'','uses'=>'PlaceController@getPlace'));
+Route::get('/place/{id}/tickets', array('as'=>'','uses'=>'TicketController@getTickets'));
 Route::get('/place/{id}/tickets/next', array('as'=>'','uses'=>'PlaceController@getNextTicketForPlace'));
 Route::get('/place/{id}/tickets/waiting', array('as'=>'','uses'=>'PlaceController@getHasWaitingTickets'));
-Route::get('/place/{id}/tickets/request', array('as'=>'','uses'=>'PlaceController@getRequestTicketForPlace'));
+Route::get('/place/{id}/tickets/request', array('as'=>'','uses'=>'TicketController@getNewTicket'));
 
 Route::get('/services', array('as'=>'','uses'=>'ServiceController@getIndex'));
 Route::get('/services/open', array('as'=>'','uses'=>'ServiceController@getOpenServices'));

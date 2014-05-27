@@ -4,8 +4,12 @@ class Place extends Eloquent {
 
     protected $table = 'places';
 
-    protected $fillable = array('name', 'acronym', 'tickets', 'counter');
+    protected $fillable = array('name', 'acronym');
     protected $guarded = array('id');
+
+    public function tickets() {
+        return $this->hasMany('Ticket');
+    }
 
     public function currentTicket() {
         return $this->counter;

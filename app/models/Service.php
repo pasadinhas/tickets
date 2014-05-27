@@ -4,8 +4,12 @@ class Service extends Eloquent {
 
     protected $table = 'services';
 
-    protected $fillable = array('ticket', 'employee', 'place_id', 'start_time', 'end_time');
+    protected $fillable = array('employee', 'ticket_id');
     protected $guarded = array('id');
+
+    public function ticket() {
+        return $this->belongsTo('Ticket');
+    }
 
     public function begin() {
         $this->start_time = now();
