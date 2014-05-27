@@ -1,5 +1,7 @@
 <?php
 
+class ServiceDoesNotExistException extends Exception {}
+
 class Service extends Eloquent {
 
     protected $table = 'services';

@@ -2,11 +2,8 @@
 
 class PlaceController extends BaseController {
 
-    public function getRequestTicketForPlace($place_id) {
-        $p = Place::find($place_id);
-        $t = $p->requestTicket();
-        $p->save();
-        return $p;
+    public function getIndex() {
+        return Place::all();
     }
 
     public function getPlace($place_id) {
@@ -16,6 +13,15 @@ class PlaceController extends BaseController {
         //    ->get();
         return $p;
     }
+
+    public function getRequestTicketForPlace($place_id) {
+        $p = Place::find($place_id);
+        $t = $p->requestTicket();
+        $p->save();
+        return $p;
+    }
+
+
 
     public function getNextTicketForPlace($place_id) {
         $p = Place::find($place_id);

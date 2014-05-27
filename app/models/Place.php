@@ -1,5 +1,7 @@
 <?php
 
+class PlaceDoesNotExistException extends Exception {}
+
 class Place extends Eloquent {
 
     protected $table = 'places';

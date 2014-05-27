@@ -17,15 +17,19 @@ Route::get('/', function()
 });
 
 Route::pattern('id', '[0-9]+');
+Route::pattern('code', '[0-9a-zA-Z]+');
 
-Route::get('/places', array('as'=>'','uses'=>'PlaceController@getIndex'));
-Route::get('/place/{id}', array('as'=>'','uses'=>'PlaceController@getPlace'));
-Route::get('/place/{id}/tickets', array('as'=>'','uses'=>'TicketController@getTickets'));
-Route::get('/place/{id}/tickets/next', array('as'=>'','uses'=>'PlaceController@getNextTicketForPlace'));
-Route::get('/place/{id}/tickets/waiting', array('as'=>'','uses'=>'PlaceController@getHasWaitingTickets'));
-Route::get('/place/{id}/tickets/request', array('as'=>'','uses'=>'TicketController@getNewTicket'));
+Route::get('/places', array('as'=>'places','uses'=>'PlaceController@getIndex'));
+Route::get('/place/{id}', array('as'=>'place','uses'=>'PlaceController@getPlace'));
 
-Route::get('/services', array('as'=>'','uses'=>'ServiceController@getIndex'));
-Route::get('/services/open', array('as'=>'','uses'=>'ServiceController@getOpenServices'));
-Route::get('/services/employee/{id}', array('as'=>'','uses'=>'ServiceController@getServicesForEmployee'));
-Route::get('/services/employee/{id}/open', array('as'=>'','uses'=>'ServiceController@getOpenServicesForEmployee'));
+Route::get('/place/{id}/tickets', array('as'=>'placeTickets','uses'=>'TicketController@getTicketsForPlace'));
+Route::get('/place/{id}/tickets/next', array('as'=>'placeNextTicket','uses'=>'TicketController@getNextTicketForPlace'));
+Route::get('/place/{id}/tickets/request', array('as'=>'placeRequestTicket','uses'=>'TicketController@getNewTicketForPlace'));
+
+Route::get('/tickets', array('as'=>'tickets','uses'=>'Controller@'));
+Route::get('/ticket/{id}', array('as'=>'ticket','uses'=>'Controller@'));
+Route::get('/ticket/{id}/service', array('as'=>'ticketService','uses'=>'Controller@'));
+
+Route::get('/services', array('as'=>'services','uses'=>'ServiceController@getIndex'));
+Route::get('/services/employee/{code}', array('as'=>'servicesEmployee','uses'=>'ServiceController@getServicesForEmployee'));
+Route::get('/service/{id}', array('as'=>'service','uses'=>'ServiceController@getIndex'));

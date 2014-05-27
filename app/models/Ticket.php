@@ -1,5 +1,7 @@
 <?php
 
+class TicketDoesNotExistException extends Exception {}
+
 class Ticket extends Eloquent {
 
     protected $table = 'tickets';
@@ -15,8 +17,7 @@ class Ticket extends Eloquent {
         return $this->hasOne('Service');
     }
 
-    public static function getNextCode($place_id) {
-        $ticket = Ticket::where('place_id', $place_id)->orderBy('created_at', 'desc')->first();
+    public static function getNextCode($ticket = null) {
         if ($ticket == null) {
             return '000';
         } else {
