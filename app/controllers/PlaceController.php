@@ -11,6 +11,9 @@ class PlaceController extends BaseController {
 
     public function getPlace($place_id) {
         $p = Place::find($place_id);
+        // To attach the tickets to this object:
+        //    ->with('tickets', 'tickets')
+        //    ->get();
         return $p;
     }
 
