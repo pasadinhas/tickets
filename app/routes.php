@@ -27,13 +27,13 @@ Route::get('/place/{id}/tickets/waiting', array('as'=>'placeWaitingTickets','use
 Route::get('/place/{id}/tickets/next', array('as'=>'placeNextTicket','uses'=>'TicketController@getNextTicketForPlace'));
 Route::get('/place/{id}/tickets/request', array('as'=>'placeRequestTicket','uses'=>'TicketController@getNewTicketForPlace'));
 
-Route::get('/tickets', array('as'=>'tickets','uses'=>'Controller@'));
-Route::get('/ticket/{id}', array('as'=>'ticket','uses'=>'Controller@'));
-Route::get('/ticket/{id}/service', array('as'=>'ticketService','uses'=>'Controller@'));
+Route::get('/tickets', array('as'=>'tickets','uses'=>'TicketController@getIndex'));
+Route::get('/ticket/{id}', array('as'=>'ticket','uses'=>'TicketController@getTicket'));
 
 Route::get('/services', array('as'=>'services','uses'=>'ServiceController@getIndex'));
+Route::get('/service/{id}', array('as'=>'service','uses'=>'ServiceController@getService'));
+Route::get('/service/{id}/finish', array('as'=>'service','uses'=>'ServiceController@getFinishService'));
 Route::get('/services/employee/{code}', array('as'=>'servicesEmployee','uses'=>'ServiceController@getServicesForEmployee'));
-Route::get('/service/{id}', array('as'=>'service','uses'=>'ServiceController@getIndex'));
 
 // FIXME: debug
 Route::get('/debug', 'BaseController@debug');

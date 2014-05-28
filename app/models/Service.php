@@ -13,12 +13,12 @@ class Service extends Eloquent {
         return $this->belongsTo('Ticket');
     }
 
-    public function begin() {
-        $this->start_time = now();
+    public function getDates() {
+        return array('created_at', 'updated_at', 'deleted_at', 'finished_at');
     }
 
-    public function end() {
-        $this->end_time = now();
+    public function finish() {
+        $this->finished_at = time();
     }
 
 }

@@ -2,12 +2,24 @@
 
 class TicketController extends BaseController {
 
+    public function getIndex() {
+        return Ticket::with('service')->get();
+    }
+
+    public function getTicket($ticket_id) {
+        return Ticket::where('id', $ticket_id)
+            ->with('service')
+            ->first();
+    }
+
     public function getTickets($place_id) {
         return Place::find($place_id)->tickets;
     }
 
     public function getTicketsForPlace($place_id) {
-        return Ticket::where('place_id', $place_id)->get();
+        return Ticket::where('place_id', $place_id)
+            ->with('service')
+            ->get();
     }
 
     public function getTicketsWaitingForPlace($place_id) {
@@ -17,7 +29,7 @@ class TicketController extends BaseController {
     }
 
     public function getNextTicketForPlace($place_id) {
-        $ticket = Ticket::where('place_id', $place_id)
+        return Ticket::where('place_id', $place_id)
             ->has('service', false)
             ->orderBy('created_at', 'asc')
             ->first();
@@ -29,10 +41,10 @@ class TicketController extends BaseController {
         return $ticket->with('service');
     }
 
-    public function getNewTicket($place_id) {
+    public function getNewTicketForPlace($place_id) {
         $t = new Ticket();
         $t->place_id = $place_id;
-        $t->code = Ticket::getNextCode($place_id);
+        $t->code = Ticket::getNextCode();
         $t->save();
         return $t;
     }
