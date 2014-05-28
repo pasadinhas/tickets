@@ -15,4 +15,19 @@ class BaseController extends Controller {
 		}
 	}
 
+    public function debug($arg1 = null) {
+        $ticket = Ticket::where('place_id', $arg1)
+            ->has('service', false)
+            ->orderBy('created_at', 'asc')
+            ->first();
+        $service = new Service();
+        $service->ticket_id = $ticket->id;
+        // FIXME: employee id
+        $service->employee = 'ist1yyyyy';
+        $service->save();
+        return Ticket::where('id', $ticket->id)
+            ->with('service')
+            ->get();
+    }
+
 }

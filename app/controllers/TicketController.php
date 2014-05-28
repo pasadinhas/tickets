@@ -10,14 +10,23 @@ class TicketController extends BaseController {
         return Ticket::where('place_id', $place_id)->get();
     }
 
+    public function getTicketsWaitingForPlace($place_id) {
+        return Ticket::where('place_id', $place_id)
+            ->has('service', false)
+            ->get();
+    }
+
     public function getNextTicketForPlace($place_id) {
-        $place = Place::find($place_id);
-        if (!$place) throw new PlaceDoesNotExistException($place_id);
-        $ticket = new Ticket();
-        $ticket->place_id = $place_id;
-        $ticket->code = Ticket::getNextCode($place->tickets->last());
-        $ticket->save();
-        return $ticket;
+        $ticket = Ticket::where('place_id', $place_id)
+            ->has('service', false)
+            ->orderBy('created_at', 'asc')
+            ->first();
+        $service = new Service();
+        $service->ticket_id = $ticket->id;
+        // FIXME: employee id
+        $service->employee = 'ist1yyyyy';
+        $service->save();
+        return $ticket->with('service');
     }
 
     public function getNewTicket($place_id) {
