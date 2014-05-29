@@ -33,18 +33,12 @@ class TicketController extends BaseController {
             ->has('service', false)
             ->orderBy('created_at', 'asc')
             ->first();
-        $service = new Service();
-        $service->ticket_id = $ticket->id;
-        // FIXME: employee id
-        $service->employee = 'ist1yyyyy';
-        $service->save();
-        return $ticket->with('service');
     }
 
     public function getNewTicketForPlace($place_id) {
         $t = new Ticket();
         $t->place_id = $place_id;
-        $t->code = Ticket::getNextCode();
+        $t->code = generate_ticket_code($place_id);
         $t->save();
         return $t;
     }

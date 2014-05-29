@@ -17,12 +17,4 @@ class Ticket extends Eloquent {
         return $this->hasOne('Service');
     }
 
-    public static function getNextCode($ticket = null) {
-        if ($ticket == null) {
-            return '000';
-        } else {
-            return sprintf('%03d', ((int) $ticket->code) + 1);
-        }
-    }
-
 }
