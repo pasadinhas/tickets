@@ -13,9 +13,6 @@
 
 Route::get('/', function(){return View::make('hello');});
 
-#Route::pattern('id', '[0-9]+');
-#Route::pattern('code', '[0-9a-zA-Z]+');
-
 Route::resource('place', 'PlaceController',
     array('only' => array('index', 'show')));
 
