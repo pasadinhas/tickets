@@ -2,36 +2,12 @@
 
 class PlaceController extends BaseController {
 
-    public function getIndex() {
+    public function index() {
         return Place::all();
     }
 
-    public function getPlace($place_id) {
-        $p = Place::find($place_id);
-        // To attach the tickets to this object:
-        //    ->with('tickets', 'tickets')
-        //    ->get();
-        return $p;
+    public function show($id) {
+        return Place::find($id);
     }
 
-    public function getRequestTicketForPlace($place_id) {
-        $p = Place::find($place_id);
-        $t = $p->requestTicket();
-        $p->save();
-        return $p;
-    }
-
-
-
-    public function getNextTicketForPlace($place_id) {
-        $p = Place::find($place_id);
-        $t = $p->nextTicket();
-        $p->save();
-        return $p;
-    }
-
-    public function getHasWaitingTickets($place_id) {
-        $p = Place::find($place_id);
-        return $p->hasWaitingTickets();
-    }
 }

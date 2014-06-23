@@ -11,31 +11,19 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', function(){return View::make('hello');});
 
-Route::pattern('id', '[0-9]+');
-Route::pattern('code', '[0-9a-zA-Z]+');
+#Route::pattern('id', '[0-9]+');
+#Route::pattern('code', '[0-9a-zA-Z]+');
 
-Route::get('/places', array('as'=>'places','uses'=>'PlaceController@getIndex'));
-Route::get('/place/{id}', array('as'=>'place','uses'=>'PlaceController@getPlace'));
+Route::resource('place', 'PlaceController',
+    array('only' => array('index', 'show')));
 
-Route::get('/place/{id}/tickets', array('as'=>'placeTickets','uses'=>'TicketController@getTicketsForPlace'));
-Route::get('/place/{id}/tickets/waiting', array('as'=>'placeWaitingTickets','uses'=>'TicketController@getTicketsWaitingForPlace'));
-Route::get('/place/{id}/tickets/next', array('as'=>'placeNextTicket','uses'=>'TicketController@getNextTicketForPlace'));
-Route::get('/place/{id}/tickets/request', array('as'=>'placeRequestTicket','uses'=>'TicketController@getNewTicketForPlace'));
+//Route::get('ticket/last', 'TicketController@showLast');
 
-Route::get('/tickets', array('as'=>'tickets','uses'=>'TicketController@getIndex'));
-Route::get('/ticket/{id}', array('as'=>'ticket','uses'=>'TicketController@getTicket'));
+Route::resource('ticket', 'TicketController',
+    array('only' => array('index', 'show', 'store')));
 
-Route::get('/services', array('as'=>'services','uses'=>'ServiceController@getIndex'));
-Route::get('/service/{id}', array('as'=>'service','uses'=>'ServiceController@getService'));
-Route::get('/service/{id}/finish', array('as'=>'service','uses'=>'ServiceController@getFinishService'));
-Route::get('/services/employee/{code}', array('as'=>'servicesEmployee','uses'=>'ServiceController@getServicesForEmployee'));
 
-// FIXME: debug
-Route::get('/debug', 'BaseController@debug');
-Route::get('/debug/{id}', 'BaseController@debug');
-Route::get('/debug/{code}', 'BaseController@debug');
+Route::resource('service', 'ServiceController',
+    array('only' => array('index', 'show', 'store', 'update')));

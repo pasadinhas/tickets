@@ -2,24 +2,28 @@
 
 class TicketController extends BaseController {
 
-    public function getIndex() {
-        return Ticket::with('service')->get();
+    public function index() {
+        // filter place and waiting. w/wo Service
+        if (Input::has('place')) {
+            return Place::find(Input::get('place'))->tickets;
+        }
+        return Ticket::all();
     }
 
-    public function getTicket($ticket_id) {
-        return Ticket::where('id', $ticket_id)
-            ->with('service')
-            ->first();
+    public function show($id) {
+        // w/wo Service
+        return Ticket::find($id);
     }
 
-    public function getTickets($place_id) {
-        return Place::find($place_id)->tickets;
-    }
-
-    public function getTicketsForPlace($place_id) {
-        return Ticket::where('place_id', $place_id)
-            ->with('service')
-            ->get();
+    public function store() {
+        // produces new ticket
+        // FIXME: ticket code is hardcoded!
+        if (Input::has('place')) {
+            return Ticket::create(array(
+                'place_id' => Input::get('place'),
+                'code' => '26'
+            ));
+        }
     }
 
     public function getTicketsWaitingForPlace($place_id) {

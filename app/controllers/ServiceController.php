@@ -2,25 +2,26 @@
 
 class ServiceController extends BaseController {
 
-    public function getIndex() {
+    public function index() {
         return Service::all();
     }
 
-    public function getService($service_id) {
-        return Service::find($service_id);
+    public function show($id) {
+        return Service::find($id);
     }
 
-    public function getOpenServices() {
-        return Service::where('end_time', null)->get();
+    public function store() {
+        if (Input::has('ticket', 'employee')) {
+            $service = new Service();
+            $service->ticket_id = Input::get('ticket');
+            $service->employee = Input::get('employee');
+            $service->save();
+            return $service;
+        }
     }
 
-    public function getServicesForEmployee($employee_id) {
-        return Service::where('employee', $employee_id)
-            ->get();
-    }
-
-    public function getFinishService($service_id) {
-        $service = Service::find($service_id);
+    public function update($id) {
+        $service = Service::findOrFail($id);
         $service->finish();
         $service->save();
         return $service;
