@@ -17,6 +17,16 @@ class ServiceController extends BaseController {
             $service->employee = Input::get('employee');
             $service->save();
             return $service;
+        } else if (Input::has('code', 'place', 'employee')) {
+            $ticket = Ticket::where('code', Input::get('code'))
+                ->where('place_id', Input::get('place'))
+                ->orderBy('id', 'desc')
+                ->first();
+            $service = new Service();
+            $service->ticket_id = $ticket->id;
+            $service->employee = Input::get('employee');
+            $service->save();
+            return $service;
         }
     }
 

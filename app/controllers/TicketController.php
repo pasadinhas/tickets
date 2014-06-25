@@ -6,6 +6,8 @@ class TicketController extends BaseController {
         // filter place and waiting. w/wo Service
         if (Input::has('place')) {
             return Place::find(Input::get('place'))->tickets;
+        } else if (Input::has('cascade') and Input::get('cascade') == 'true') {
+            return Ticket::with('service')->get();
         }
         return Ticket::all();
     }

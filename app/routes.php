@@ -1,5 +1,9 @@
 <?php
 
+// FIXME - header allows all
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Methods: OPTIONS, POST, GET, PUT, DELETE, PATCH');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -16,11 +20,8 @@ Route::get('/', function(){return View::make('hello');});
 Route::resource('place', 'PlaceController',
     array('only' => array('index', 'show')));
 
-//Route::get('ticket/last', 'TicketController@showLast');
-
 Route::resource('ticket', 'TicketController',
     array('only' => array('index', 'show', 'store')));
-
 
 Route::resource('service', 'ServiceController',
     array('only' => array('index', 'show', 'store', 'update')));
