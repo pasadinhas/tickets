@@ -17,6 +17,10 @@ header('Access-Control-Allow-Methods: OPTIONS, POST, GET, PUT, DELETE, PATCH');
 
 Route::get('/', function(){return View::make('hello');});
 
+Route::get('/login' , ['as' => 'login' , 'uses' => 'SessionController@store']);
+Route::get('/logout', ['as' => 'logout', 'uses' => 'SessionController@destroy']);
+Route::get('/profile', 'SessionController@show');
+
 Route::resource('place', 'PlaceController',
     array('only' => array('index', 'show')));
 

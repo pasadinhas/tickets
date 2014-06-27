@@ -13,4 +13,8 @@ class Place extends Eloquent {
         return $this->hasMany('Ticket');
     }
 
+    public function users() {
+        return $this->hasMany('User');
+    }
+
 }
